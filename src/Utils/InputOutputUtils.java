@@ -1,5 +1,6 @@
 package Utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,5 +17,15 @@ public class InputOutputUtils {
             b.append((char) c);
         }
         return b.toString();
+    }
+
+    public static String readString(){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            return br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
