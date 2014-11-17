@@ -1,16 +1,14 @@
 package Server;
 
 import Constants.AutoConst;
-import Utils.Parser;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 /**
  * Created by Denis on 26.10.2014.
  */
 public class Autorizetion {
     public interface IAuto{
-        public void success(ArrayList<String>arl);
+        public void success(String arl);
         public void error(String err);
     }
 
@@ -21,16 +19,16 @@ public class Autorizetion {
                 .add("client_id", AutoConst.clientId)
                 .add("scope", AutoConst.scope)
                 .add("redirect_uri", AutoConst.redirectUri)
-                .add("display", AutoConst.display)
-                .add("v", AutoConst.v)
-                .add("response_type", AutoConst.responseType);
+                .add("response_type", AutoConst.responseType)
+                .add("v", AutoConst.v);
         }catch(UnsupportedEncodingException e){
             System.out.print("Error!");
         }
+
         Queries.get(AutoConst.url,q, new Queries.IServerAnswer() {
             @Override
             public void success(String str) {
-                iAuto.success(Parser.parseAuto(str));
+                iAuto.success(str);
             }
 
             @Override
