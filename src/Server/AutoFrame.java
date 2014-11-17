@@ -22,9 +22,10 @@ public class AutoFrame extends JFrame {
 
     private void viewFrame(){
         add(jfxPanel);
-        setUndecorated(true);
-        setSize(700,600); //установка параметров окна
+        //setUndecorated(true);
+        setSize(700,500);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -45,7 +46,6 @@ public class AutoFrame extends JFrame {
                             String str = webView.getEngine().getLocation();
                             if ( str.contains("access_token")){
                                 Autorizetion.finishAutorizetion(str);
-
                             }
                             else
                             if(str.contains("access_denied")){

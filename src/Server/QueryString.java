@@ -19,7 +19,7 @@ public class QueryString {
 
     public synchronized QueryString add(String name,Object value)throws UnsupportedEncodingException {
         if(!query.toString().trim().equals(""))query.append("&");
-        query.append(URLEncoder.encode(name.toString(),"UTF-8"));
+        query.append(URLEncoder.encode(name,"UTF-8"));
         query.append("=");
         query.append(URLEncoder.encode(value.toString(),"UTF-8"));
         return this;
