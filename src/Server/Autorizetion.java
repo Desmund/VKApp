@@ -25,16 +25,19 @@ public class Autorizetion {
             System.out.print("Error!");
         }
 
-        Queries.get(AutoConst.url,q, new Queries.IServerAnswer() {
-            @Override
-            public void success(String str) {
-                iAuto.success(str);
-            }
+        AutoFrame autoFrame = new AutoFrame(AutoConst.url+"?"+q);
+        autoFrame.setVisible(true);
 
-            @Override
-            public void error(String err) {
-                iAuto.error(err);
-            }
-        });
+//        Queries.get(AutoConst.url,q, new Queries.IServerAnswer() {
+//            @Override
+//            public void success(String str) {
+//                iAuto.success(str);
+//            }
+//
+//            @Override
+//            public void error(String err) {
+//                iAuto.error(err);
+//            }
+//        });
     }
 }
