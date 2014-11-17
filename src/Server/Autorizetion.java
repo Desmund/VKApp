@@ -7,37 +7,26 @@ import java.io.UnsupportedEncodingException;
  * Created by Denis on 26.10.2014.
  */
 public class Autorizetion {
-    public interface IAuto{
-        public void success(String arl);
-        public void error(String err);
-    }
-
-    public static void auto(final IAuto iAuto){
+    public static void auto(){
         QueryString q = null;
         try{
             q = new QueryString()
                 .add("client_id", AutoConst.clientId)
                 .add("scope", AutoConst.scope)
                 .add("redirect_uri", AutoConst.redirectUri)
-                .add("response_type", AutoConst.responseType)
-                .add("v", AutoConst.v);
+                .add("display", AutoConst.display)
+                .add("v", AutoConst.v)
+                .add("response_type", AutoConst.responseType);
         }catch(UnsupportedEncodingException e){
             System.out.print("Error!");
         }
+        new AutoFrame(AutoConst.url+"?"+q);
+    }
 
-        AutoFrame autoFrame = new AutoFrame(AutoConst.url+"?"+q);
-        autoFrame.setVisible(true);
-
-//        Queries.get(AutoConst.url,q, new Queries.IServerAnswer() {
-//            @Override
-//            public void success(String str) {
-//                iAuto.success(str);
-//            }
-//
-//            @Override
-//            public void error(String err) {
-//                iAuto.error(err);
-//            }
-//        });
+    public static void finishAutorizetion(String str){
+        System.out.println("Авторизация прошла успешно!");
+        System.out.println("Access token = "+str.substring(str.indexOf("access_token=")+"access_token=".length(),str.indexOf("&")));
+        System.out.println("User id = "+str.substring(str.indexOf("user_id=")+"user_id=".length()));
+        System.exit(0);
     }
 }

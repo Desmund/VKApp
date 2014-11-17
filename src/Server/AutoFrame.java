@@ -11,8 +11,8 @@ import javax.swing.*;
  * Created by Denis on 17.11.2014.
  */
 public class AutoFrame extends JFrame {
-    JFXPanel jfxPanel;
-    WebView webView;
+    private JFXPanel jfxPanel;
+    private WebView webView;
 
     public AutoFrame(final String url) {
         jfxPanel = new JFXPanel();
@@ -20,14 +20,15 @@ public class AutoFrame extends JFrame {
         viewWeb(url);
     }
 
-    public void viewFrame(){
-        this.add(jfxPanel);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(700,600); //установка параметров окна
-        this.setVisible(true);
+    private void viewFrame(){
+        add(jfxPanel);
+        setUndecorated(true);
+        setSize(700,600); //установка параметров окна
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    public void viewWeb(final String url){
+    private void viewWeb(final String url){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -37,6 +38,22 @@ public class AutoFrame extends JFrame {
                 borderPane.setCenter(webView);
                 Scene screen = new Scene(borderPane,450,450);
                 jfxPanel.setScene(screen);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (true){
+                            String str = webView.getEngine().getLocation();
+                            if ( str.contains("access_token")){
+                                Autorizetion.finishAutorizetion(str);
+
+                            }
+                            else
+                            if(str.contains("access_denied")){
+                                webView.getEngine().load(url);
+                            }
+                        }
+                    }
+                }).start();
             }
         });
     }
